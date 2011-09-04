@@ -64,6 +64,12 @@ class OAuth_Provider_Twitter extends OAuth_Provider {
 			  'Website' => $user->url,
 			  'Twitter' => 'http://twitter.com/'.$user->screen_name,
 			),
+			'credentials' => array(
+				'uid' => $token->uid,
+				'provider' => $this->name,
+				'token' => $token->token,
+				'secret' => $token->secret,
+			),
 		);
 	}
 	

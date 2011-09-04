@@ -9,13 +9,13 @@ return array(
 	 * be provided when making OAuth requests.
 	 */
 	'twitter' => array(
-		'key' => 'rTEn9REHxgE4OOrAva8mw',
-		'secret' => 'FpQCqRQlZKNOYtcFMYI9RMcpeKF1p8AKNKcz9VL56E'
+		'key' => '',
+		'secret' => ''
 	),
 	
 	'facebook' => array(
-		'key' => '166876746665872',
-		'secret' => '31eab09faa60010e0dd6a81c8df14785',
+		'key' => '',
+		'secret' => '',
 		'scope' => 'publish_stream,offline_access,publish_checkins,user_location,read_stream,user_checkins'
 	),
 	
