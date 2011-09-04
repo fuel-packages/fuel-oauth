@@ -18,7 +18,7 @@
 
 namespace OAuth;
 
-class OAuth_Provider_Twitter extends OAuth_Provider {
+class Provider_Twitter extends Provider {
 
 	public $name = 'twitter';
 
@@ -44,15 +44,15 @@ class OAuth_Provider_Twitter extends OAuth_Provider {
 	{
 		\Config::load('oauth', true);
 		
-		$consumer = OAuth_Consumer::factory(Config::get('oauth.twitter'));
+		$consumer = Consumer::factory(Config::get('oauth.twitter'));
 		$options['token'] = $token->token;
 		$options['secret'] = $token->secret;
-		$access_token = OAuth_Token::factory('access', $options);
+		$access_token = Token::factory('access', $options);
 		
 		
 		
 		// http://api.twitter.com/1/users/lookup.format
-		$request = new OAuth_Request('GET', 'http://api.twitter.com/1/account.json', array(
+		$request = new Request('GET', 'http://api.twitter.com/1/account.json', array(
 			'id' => 6253282,
 		));
 		
@@ -60,4 +60,4 @@ class OAuth_Provider_Twitter extends OAuth_Provider {
 	}
 	*/
 
-} // End OAuth_Provider_Twitter
+} // End Provider_Twitter

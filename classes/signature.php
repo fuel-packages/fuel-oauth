@@ -12,21 +12,21 @@
 
 namespace OAuth;
 
-abstract class OAuth_Signature {
+abstract class Signature {
 
 	/**
 	 * Create a new signature object by name.
 	 *
-	 *     $signature = OAuth_Signature::factory('HMAC-SHA1');
+	 *     $signature = Signature::factory('HMAC-SHA1');
 	 *
 	 * @param   string  signature name: HMAC-SHA1, PLAINTEXT, etc
 	 * @param   array   signature options
-	 * @return  OAuth_Signature
+	 * @return  Signature
 	 */
 	public static function factory($name, array $options = NULL)
 	{
 		// Create the class name as a base of this class
-		$class = 'OAuth_Signature_'.str_replace('-', '_', $name);
+		$class = '\\OAuth\\Signature_'.str_replace('-', '_', $name);
 
 		return new $class($options);
 	}
@@ -56,12 +56,12 @@ abstract class OAuth_Signature {
 	 *
 	 * [!!] This method implements the signing key of [OAuth 1.0 Spec 9](http://oauth.net/core/1.0/#rfc.section.9).
 	 *
-	 * @param   OAuth_Consumer  consumer
-	 * @param   OAuth_Token     token
+	 * @param   Consumer  consumer
+	 * @param   Token     token
 	 * @return  string
 	 * @uses    OAuth::urlencode
 	 */
-	public function key(OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function key(Consumer $consumer, Token $token = NULL)
 	{
 		$key = OAuth::urlencode($consumer->secret).'&';
 
@@ -73,8 +73,8 @@ abstract class OAuth_Signature {
 		return $key;
 	}
 
-	abstract public function sign(OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL);
+	abstract public function sign(Request $request, Consumer $consumer, Token $token = NULL);
 
-	abstract public function verify($signature, OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL);
+	abstract public function verify($signature, Request $request, Consumer $consumer, Token $token = NULL);
 
-} // End OAuth_Signature
+} // End Signature

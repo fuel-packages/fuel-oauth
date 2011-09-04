@@ -12,11 +12,11 @@
 
 namespace OAuth;
 
-class OAuth_Response {
+class Response {
 
 	public static function factory($body)
 	{
-		return new OAuth_Response($body);
+		return new Response($body);
 	}
 
 	/**
@@ -51,4 +51,4 @@ class OAuth_Response {
 		return \Arr::get($this->params, $name, $default);
 	}
 
-} // End OAuth_Response
+} // End Response

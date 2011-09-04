@@ -12,22 +12,22 @@
 
 namespace OAuth;
 
-class OAuth_Request {
+class Request {
 
 	/**
 	 * Create a new request object.
 	 *
-	 *     $request = OAuth_Request::factory('token', 'GET', 'http://example.com/oauth/request_token');
+	 *     $request = Request::factory('token', 'GET', 'http://example.com/oauth/request_token');
 	 *
 	 * @param   string  request type
 	 * @param   string  request URL
 	 * @param   string  request method
 	 * @param   array   request parameters
-	 * @return  OAuth_Request
+	 * @return  Request
 	 */
 	public static function factory($type, $method, $url = NULL, array $params = NULL)
 	{
-		$class = 'OAuth_Request_'.\Inflector::classify($type);
+		$class = '\\OAuth\\Request_'.\Inflector::classify($type);
 
 		return new $class($method, $url, $params);
 	}
@@ -179,7 +179,7 @@ class OAuth_Request {
 	 *
 	 * [!!] This method implements [OAuth 1.0 Spec A5.1](http://oauth.net/core/1.0/#rfc.section.A.5.1).
 	 *
-	 * @param   OAuth_Request   request to sign
+	 * @param   Request   request to sign
 	 * @return  string
 	 * @uses    OAuth::urlencode
 	 * @uses    OAuth::normalize_params
@@ -254,7 +254,7 @@ class OAuth_Request {
 	 * @param   array    parameters
 	 * @param   boolean  allow duplicates?
 	 * @return  $this
-	 * @uses    OAuth_Request::param
+	 * @uses    Request::param
 	 */
 	public function params(array $params, $duplicate = FALSE)
 	{
@@ -279,7 +279,7 @@ class OAuth_Request {
 	 * @param   mixed    upload file path
 	 * @return  mixed    when getting
 	 * @return  $this    when setting
-	 * @uses    OAuth_Request::param
+	 * @uses    Request::param
 	 */
 	public function upload($name, $value = NULL)
 	{
@@ -395,7 +395,7 @@ class OAuth_Request {
 	 *     $url = $request->as_url();
 	 *
 	 * @return  string
-	 * @uses    OAuth_Request::as_query
+	 * @uses    Request::as_query
 	 */
 	public function as_url()
 	{
@@ -405,13 +405,13 @@ class OAuth_Request {
 	/**
 	 * Sign the request, setting the `oauth_signature_method` and `oauth_signature`.
 	 *
-	 * @param   OAuth_Signature  signature
-	 * @param   OAuth_Consumer   consumer
-	 * @param   OAuth_Token      token
+	 * @param   Signature  signature
+	 * @param   Consumer   consumer
+	 * @param   Token      token
 	 * @return  $this
-	 * @uses    OAuth_Signature::sign
+	 * @uses    Signature::sign
 	 */
-	public function sign(OAuth_Signature $signature, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function sign(Signature $signature, Consumer $consumer, Token $token = NULL)
 	{
 		// Create a new signature class from the method
 		$this->param('oauth_signature_method', $signature->name);
@@ -456,7 +456,7 @@ class OAuth_Request {
 	 *
 	 * @param   array    additional cURL options
 	 * @return  string   request response body
-	 * @uses    OAuth_Request::check
+	 * @uses    Request::check
 	 * @uses    Arr::get
 	 * @uses    Remote::get
 	 */
@@ -506,4 +506,4 @@ class OAuth_Request {
 		return OAuth::remote($url, $options);
 	}
 
-} // End OAuth_Request
+} // End Request

@@ -20,7 +20,7 @@
 
 namespace OAuth;
 	
-class OAuth_Provider_Google extends OAuth_Provider {
+class Provider_Google extends Provider {
 
 	public $name = 'google';
 
@@ -41,7 +41,7 @@ class OAuth_Provider_Google extends OAuth_Provider {
 		return 'https://www.google.com/accounts/OAuthGetAccessToken';
 	}
 
-	public function request_token(OAuth_Consumer $consumer, array $params = NULL)
+	public function request_token(Consumer $consumer, array $params = NULL)
 	{
 		if ( ! isset($params['scope']))
 		{
@@ -55,4 +55,4 @@ class OAuth_Provider_Google extends OAuth_Provider {
 		return parent::request_token($consumer, $params);
 	}
 
-} // End OAuth_Provider_Google
+} // End Provider_Google

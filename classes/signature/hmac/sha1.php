@@ -2,7 +2,7 @@
 /**
  * The HMAC-SHA1 signature provides secure signing using the HMAC-SHA1
  * algorithm as defined by [RFC2104](http://tools.ietf.org/html/rfc2104).
- * It uses [OAuth_Request::base_string] as the text and [OAuth_Signature::key]
+ * It uses [Request::base_string] as the text and [Signature::key]
  * as the signing key.
  *
  * @package    Kohana/OAuth
@@ -15,7 +15,7 @@
 
 namespace OAuth;
 
-class OAuth_Signature_HMAC_SHA1 extends OAuth_Signature {
+class Signature_HMAC_SHA1 extends Signature {
 
 	protected $name = 'HMAC-SHA1';
 
@@ -27,14 +27,14 @@ class OAuth_Signature_HMAC_SHA1 extends OAuth_Signature {
 	 *
 	 * [!!] This method implements [OAuth 1.0 Spec 9.2.1](http://oauth.net/core/1.0/#rfc.section.9.2.1).
 	 *
-	 * @param   OAuth_Request   request
-	 * @param   OAuth_Consumer  consumer
-	 * @param   OAuth_Token     token
+	 * @param   Request   request
+	 * @param   Consumer  consumer
+	 * @param   Token     token
 	 * @return  string
-	 * @uses    OAuth_Signature::key
-	 * @uses    OAuth_Request::base_string
+	 * @uses    Signature::key
+	 * @uses    Request::base_string
 	 */
-	public function sign(OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function sign(Request $request, Consumer $consumer, Token $token = NULL)
 	{
 		// Get the signing key
 		$key = $this->key($consumer, $token);
@@ -57,15 +57,15 @@ class OAuth_Signature_HMAC_SHA1 extends OAuth_Signature {
 	 * [!!] This method implements [OAuth 1.0 Spec 9.2.2](http://oauth.net/core/1.0/#rfc.section.9.2.2).
 	 *
 	 * @param   string          signature to verify
-	 * @param   OAuth_Request   request
-	 * @param   OAuth_Consumer  consumer
-	 * @param   OAuth_Token     token
+	 * @param   Request   request
+	 * @param   Consumer  consumer
+	 * @param   Token     token
 	 * @return  boolean
-	 * @uses    OAuth_Signature_HMAC_SHA1::sign
+	 * @uses    Signature_HMAC_SHA1::sign
 	 */
-	public function verify($signature, OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function verify($signature, Request $request, Consumer $consumer, Token $token = NULL)
 	{
 		return $signature === $this->sign($request, $consumer, $token);
 	}
 
-} // End OAuth_Signature_HMAC_SHA1
+} // End Signature_HMAC_SHA1

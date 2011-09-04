@@ -12,20 +12,20 @@
 
 namespace OAuth;
 
-abstract class OAuth_Token {
+abstract class Token {
 
 	/**
 	 * Create a new token object.
 	 *
-	 *     $token = OAuth_Token::factory($name);
+	 *     $token = Token::factory($name);
 	 *
 	 * @param   string  token type
 	 * @param   array   token options
-	 * @return  OAuth_Token
+	 * @return  Token
 	 */
 	public static function factory($name, array $options = NULL)
 	{
-		$class = 'OAuth_Token_'.\Inflector::classify($name);
+		$class = 'Token_'.\Inflector::classify($name);
 
 		return new $class($options);
 	}
@@ -94,4 +94,4 @@ abstract class OAuth_Token {
 		return (string) $this->token;
 	}
 
-} // End OAuth_Token
+} // End Token

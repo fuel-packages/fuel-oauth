@@ -1,6 +1,6 @@
 <?php
 /**
- * OAuth Token Request
+ * OAuth Access Request
  *
  * @package    Kohana/OAuth
  * @category   Request
@@ -12,24 +12,24 @@
 
 namespace OAuth;
 
-class OAuth_Request_Token extends OAuth_Request {
+class Request_Access extends Request {
 
-	protected $name = 'request';
+	protected $name = 'access';
 
-	// http://oauth.net/core/1.0/#rfc.section.6.3.1
 	protected $required = array(
-		'oauth_callback'         => TRUE,
 		'oauth_consumer_key'     => TRUE,
+		'oauth_token'            => TRUE,
 		'oauth_signature_method' => TRUE,
 		'oauth_signature'        => TRUE,
 		'oauth_timestamp'        => TRUE,
 		'oauth_nonce'            => TRUE,
+		'oauth_verifier'         => TRUE,
 		'oauth_version'          => TRUE,
 	);
 
 	public function execute(array $options = NULL)
 	{
-		return OAuth_Response::factory(parent::execute($options));
+		return Response::factory(parent::execute($options));
 	}
 
-} // End OAuth_Request_Token
+} // End Request_Access

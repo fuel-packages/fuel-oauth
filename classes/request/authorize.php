@@ -12,7 +12,7 @@
 
 namespace OAuth;
 
-class OAuth_Request_Authorize extends OAuth_Request {
+class Request_Authorize extends Request {
 
 	protected $name = 'request';
 
@@ -26,4 +26,4 @@ class OAuth_Request_Authorize extends OAuth_Request {
 		return \Response::redirect($this->as_url());
 	}
 
-} // End OAuth_Request_Authorize
+} // End Request_Authorize

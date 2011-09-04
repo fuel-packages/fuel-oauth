@@ -13,7 +13,7 @@
 
 namespace OAuth;
 
-class OAuth_Signature_PLAINTEXT extends OAuth_Signature {
+class Signature_PLAINTEXT extends Signature {
 
 	protected $name = 'PLAINTEXT';
 
@@ -24,12 +24,12 @@ class OAuth_Signature_PLAINTEXT extends OAuth_Signature {
 	 *
 	 * [!!] This method implements [OAuth 1.0 Spec 9.4.1](http://oauth.net/core/1.0/#rfc.section.9.4.1).
 	 *
-	 * @param   OAuth_Request   request
-	 * @param   OAuth_Consumer  consumer
-	 * @param   OAuth_Token     token
+	 * @param   Request   request
+	 * @param   Consumer  consumer
+	 * @param   Token     token
 	 * @return  $this
 	 */
-	public function sign(OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function sign(Request $request, Consumer $consumer, Token $token = NULL)
 	{
 		// Use the signing key as the signature
 		return $this->key($consumer, $token);
@@ -46,15 +46,15 @@ class OAuth_Signature_PLAINTEXT extends OAuth_Signature {
 	 * [!!] This method implements [OAuth 1.0 Spec 9.4.2](http://oauth.net/core/1.0/#rfc.section.9.4.2).
 	 *
 	 * @param   string          signature to verify
-	 * @param   OAuth_Request   request
-	 * @param   OAuth_Consumer  consumer
-	 * @param   OAuth_Token     token
+	 * @param   Request   request
+	 * @param   Consumer  consumer
+	 * @param   Token     token
 	 * @return  boolean
-	 * @uses    OAuth_Signature_PLAINTEXT::sign
+	 * @uses    Signature_PLAINTEXT::sign
 	 */
-	public function verify($signature, OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function verify($signature, Request $request, Consumer $consumer, Token $token = NULL)
 	{
 		return $signature === $this->key($consumer, $token);
 	}
 
-} // End OAuth_Signature_PLAINTEXT
+} // End Signature_PLAINTEXT

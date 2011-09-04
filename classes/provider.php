@@ -12,21 +12,21 @@
 
 namespace OAuth;
 
-abstract class OAuth_Provider {
+abstract class Provider {
 
 	/**
 	 * Create a new provider.
 	 *
 	 *     // Load the Twitter provider
-	 *     $provider = OAuth_Provider::factory('twitter');
+	 *     $provider = Provider::factory('twitter');
 	 *
 	 * @param   string   provider name
 	 * @param   array    provider options
-	 * @return  OAuth_Provider
+	 * @return  Provider
 	 */
 	public static function factory($name, array $options = NULL)
 	{
-		$class = 'OAuth_Provider_'.\Inflector::classify($name);
+		$class = '\\OAuth\\Provider_'.\Inflector::classify($name);
 
 		return new $class($options);
 	}
@@ -64,13 +64,13 @@ abstract class OAuth_Provider {
 		if ( ! is_object($this->signature))
 		{
 			// Convert the signature name into an object
-			$this->signature = OAuth_Signature::factory($this->signature);
+			$this->signature = Signature::factory($this->signature);
 		}
 
 		if ( ! $this->name)
 		{
 			// Attempt to guess the name from the class name
-			$this->name = strtolower(substr(get_class($this), strlen('OAuth_Provider_')));
+			$this->name = strtolower(substr(get_class($this), strlen('Provider_')));
 		}
 	}
 
@@ -120,15 +120,15 @@ abstract class OAuth_Provider {
 	 *
 	 *     $token = $provider->request_token($consumer);
 	 *
-	 * @param   OAuth_Consumer  consumer
+	 * @param   Consumer  consumer
 	 * @param   array           additional request parameters
-	 * @return  OAuth_Token_Request
-	 * @uses    OAuth_Request_Token
+	 * @return  Token_Request
+	 * @uses    Request_Token
 	 */
-	public function request_token(OAuth_Consumer $consumer, array $params = NULL)
+	public function request_token(Consumer $consumer, array $params = NULL)
 	{
 		// Create a new GET request for a request token with the required parameters
-		$request = OAuth_Request::factory('token', 'GET', $this->url_request_token(), array(
+		$request = Request::factory('token', 'GET', $this->url_request_token(), array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_callback'     => $consumer->callback,
 		));
@@ -146,7 +146,7 @@ abstract class OAuth_Provider {
 		$response = $request->execute();
 
 		// Store this token somewhere useful
-		return OAuth_Token::factory('request', array(
+		return Token::factory('request', array(
 			'token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
 		));
@@ -157,14 +157,14 @@ abstract class OAuth_Provider {
 	 *
 	 *     $this->request->redirect($provider->authorize_url($token));
 	 *
-	 * @param   OAuth_Token_Request  token
+	 * @param   Token_Request  token
 	 * @param   array                additional request parameters
 	 * @return  string
 	 */
-	public function authorize_url(OAuth_Token_Request $token, array $params = NULL)
+	public function authorize_url(Token_Request $token, array $params = NULL)
 	{
 		// Create a new GET request for a request token with the required parameters
-		$request = OAuth_Request::factory('authorize', 'GET', $this->url_authorize(), array(
+		$request = Request::factory('authorize', 'GET', $this->url_authorize(), array(
 			'oauth_token' => $token->token,
 		));
 
@@ -182,15 +182,15 @@ abstract class OAuth_Provider {
 	 *
 	 *     $token = $provider->access_token($consumer, $token);
 	 *
-	 * @param   OAuth_Consumer       consumer
-	 * @param   OAuth_Token_Request  token
+	 * @param   Consumer       consumer
+	 * @param   Token_Request  token
 	 * @param   array                additional request parameters
-	 * @return  OAuth_Token_Access
+	 * @return  Token_Access
 	 */
-	public function access_token(OAuth_Consumer $consumer, OAuth_Token_Request $token, array $params = NULL)
+	public function access_token(Consumer $consumer, Token_Request $token, array $params = NULL)
 	{
 		// Create a new GET request for a request token with the required parameters
-		$request = OAuth_Request::factory('access', 'GET', $this->url_access_token(), array(
+		$request = Request::factory('access', 'GET', $this->url_access_token(), array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token'        => $token->token,
 			'oauth_verifier'     => $token->verifier,
@@ -209,10 +209,10 @@ abstract class OAuth_Provider {
 		$response = $request->execute();
 
 		// Store this token somewhere useful
-		return OAuth_Token::factory('access', array(
+		return Token::factory('access', array(
 			'token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
 		));
 	}
 
-} // End OAuth_Signature
+} // End Signature

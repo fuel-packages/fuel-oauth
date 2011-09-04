@@ -12,7 +12,7 @@
 
 namespace OAuth;
 
-class OAuth_Request_Resource extends OAuth_Request {
+class Request_Resource extends Request {
 
 	protected $name = 'resource';
 
@@ -27,4 +27,4 @@ class OAuth_Request_Resource extends OAuth_Request {
 		'oauth_version'          => TRUE,
 	);
 
-} // End OAuth_Request_Resource
+} // End Request_Resource

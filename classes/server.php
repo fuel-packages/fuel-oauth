@@ -1,9 +1,9 @@
 <?php
 /**
- * OAuth Credentials Request
+ * OAuth Server
  *
  * @package    Kohana/OAuth
- * @category   Request
+ * @category   Server
  * @author     Kohana Team
  * @copyright  (c) 2010 Kohana Team
  * @license    http://kohanaframework.org/license
@@ -12,8 +12,6 @@
 
 namespace OAuth;
 
-class OAuth_Request_Credentials extends OAuth_Request {
+abstract class Server {
 
-
-
-} // End OAuth_Request_Credentials
+} // End Server
