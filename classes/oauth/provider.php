@@ -114,6 +114,15 @@ abstract class OAuth_Provider {
 	 * @return  string
 	 */
 	abstract public function url_access_token();
+	
+	/**
+	 * Returns basic information about the user.
+	 *
+	 *     $url = $provider->get_user_info();
+	 *
+	 * @return  string
+	 */
+	abstract public function get_user_info(OAuth_Consumer $consumer, OAuth_Token $token);
 
 	/**
 	 * Ask for a request token from the OAuth provider.
@@ -207,11 +216,12 @@ abstract class OAuth_Provider {
 
 		// Create a response from the request
 		$response = $request->execute();
-
+		
 		// Store this token somewhere useful
 		return OAuth_Token::factory('access', array(
 			'token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
+			'uid' => $response->param('uid'),
 		));
 	}
 

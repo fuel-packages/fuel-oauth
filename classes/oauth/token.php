@@ -46,6 +46,11 @@ abstract class OAuth_Token {
 	protected $secret;
 
 	/**
+	 * @var  string  uid
+	 */
+	protected $uid;
+
+	/**
 	 * Sets the token and secret values.
 	 *
 	 * @param   array   token options
@@ -68,6 +73,9 @@ abstract class OAuth_Token {
 		$this->token = $options['token'];
 
 		$this->secret = $options['secret'];
+		
+		// If we have a uid lets use it
+		\Arr::get($options, 'uid') and $this->uid = $options['uid'];
 	}
 
 	/**
