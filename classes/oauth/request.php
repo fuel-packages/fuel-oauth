@@ -223,7 +223,7 @@ class OAuth_Request {
 		if ($value === NULL)
 		{
 			// Get the parameter
-			return Arr::get($this->params, $name);
+			return \Arr::get($this->params, $name);
 		}
 
 		if (isset($this->params[$name]) AND $duplicate)

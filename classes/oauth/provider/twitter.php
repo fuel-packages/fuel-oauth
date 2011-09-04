@@ -39,25 +39,28 @@ class OAuth_Provider_Twitter extends OAuth_Provider {
 		return 'https://api.twitter.com/oauth/access_token';
 	}
 	
-	/*
-	public function get_user_data($token)
-	{
-		\Config::load('oauth', true);
-		
-		$consumer = OAuth_Consumer::factory(Config::get('oauth.twitter'));
-		$options['token'] = $token->token;
-		$options['secret'] = $token->secret;
-		$access_token = OAuth_Token::factory('access', $options);
-		
-		
-		
+	public function get_user_data(OAuth_Consumer $consumer, OAuth_Token $token)
+	{	
 		// http://api.twitter.com/1/users/lookup.format
-		$request = new OAuth_Request('GET', 'http://api.twitter.com/1/account.json', array(
-			'id' => 6253282,
-		));
+/*
+		$request = new OAuth_Request('GET', 'http://api.twitter.com/1/statuses/public_timeline.json', array(
+			'token' => $token->token,
+			'secret' => $token->secret,
+				'consumer_key' => $twitter['key'],
+				'consumer_secret' => $twitter['secret'],
+		));*/
 		
-		return $request->execute();
+		// Create a new GET request with the required parameters
+		$request = OAuth_Request::factory('resource', 'GET', 'http://api.twitter.com/1/statuses/home_timeline', array(
+			'oauth_consumer_key' => $consumer->key,
+			'oauth_token' => $token->token,
+		));
+
+		// Sign the request using the consumer and token
+		$request->sign($this->signature, $consumer, $token);
+
+		// Create a response from the request
+		return $response = $request->execute();
 	}
-	*/
 
 } // End OAuth_Provider_Twitter

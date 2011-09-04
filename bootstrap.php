@@ -22,11 +22,13 @@ Autoloader::add_classes(array(
 	
 	'OAuth\\OAuth_Provider_Twitter'  => __DIR__.'/classes/oauth/provider/twitter.php',
 	'OAuth\\OAuth_Provider_Google'  => __DIR__.'/classes/oauth/provider/google.php',
+	'OAuth\\OAuth_Provider_Facebook'  => __DIR__.'/classes/oauth/provider/facebook.php',
 	
 	'OAuth\\OAuth_Request'  => __DIR__.'/classes/oauth/request.php',
 	
 	'OAuth\\OAuth_Request_Access' => __DIR__.'/classes/oauth/request/access.php',
 	'OAuth\\OAuth_Request_Authorize' => __DIR__.'/classes/oauth/request/authorize.php',
+	'OAuth\\OAuth_Request_Resource' => __DIR__.'/classes/oauth/request/resource.php',
 	'OAuth\\OAuth_Request_Token'  => __DIR__.'/classes/oauth/request/token.php',
 	
 	'OAuth\\OAuth_Response'  => __DIR__.'/classes/oauth/response.php',
