@@ -37,6 +37,11 @@ abstract class OAuth_Provider {
 	public $name;
 
 	/**
+	 * @var  string  uid key name
+	 */
+	public $uid_key;
+
+	/**
 	 * @var  array  additional request parameters to be used for remote requests
 	 */
 	protected $params = array();
@@ -164,7 +169,7 @@ abstract class OAuth_Provider {
 	/**
 	 * Get the authorization URL for the request token.
 	 *
-	 *     $this->request->redirect($provider->authorize_url($token));
+	 *     Response::redirect($provider->authorize_url($token));
 	 *
 	 * @param   OAuth_Token_Request  token
 	 * @param   array                additional request parameters
@@ -221,7 +226,7 @@ abstract class OAuth_Provider {
 		return OAuth_Token::factory('access', array(
 			'token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
-			'uid' => $response->param('uid'),
+			'uid' => $response->param($this->uid_key) ?: \Input::get_post($this->uid_key),
 		));
 	}
 

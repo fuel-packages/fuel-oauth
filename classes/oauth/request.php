@@ -444,7 +444,7 @@ class OAuth_Request {
 		{
 			if ($required AND ! isset($this->params[$param]))
 			{
-				throw new Exception(sprintf('Request to %s requires missing parameter "%"', $this->url, $params));
+				throw new Exception(sprintf('Request to %s requires missing parameter "%s"', $this->url, $param));
 			}
 		}
 
