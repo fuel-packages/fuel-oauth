@@ -57,6 +57,8 @@ class OAuth_Provider_Linkedin extends OAuth_Provider {
 		return array(
 			'name' => $user['first-name'].' '.$user['last-name'],
 			'nickname' => end(explode('/', $user['public-profile-url'])),
+			'description' => $user['headline'],
+			'location' => \Arr::get($user, 'location.name'),
 			'urls' => array(
 			  'Linked In' => $user['public-profile-url'],
 			),
