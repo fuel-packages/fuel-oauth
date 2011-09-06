@@ -36,6 +36,8 @@ abstract class OAuth_Provider {
 	 */
 	public $name;
 
+	protected $signature = 'HMAC-SHA1';
+
 	/**
 	 * @var  string  uid key name
 	 */

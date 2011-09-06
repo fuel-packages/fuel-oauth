@@ -21,8 +21,9 @@ Autoloader::add_classes(array(
 	'OAuth\\OAuth_Provider'  => __DIR__.'/classes/oauth/provider.php',
 	
 	'OAuth\\OAuth_Provider_Dropbox'  => __DIR__.'/classes/oauth/provider/dropbox.php',
-	'OAuth\\OAuth_Provider_Twitter'  => __DIR__.'/classes/oauth/provider/twitter.php',
 	'OAuth\\OAuth_Provider_Google'  => __DIR__.'/classes/oauth/provider/google.php',
+	'OAuth\\OAuth_Provider_Linkedin'  => __DIR__.'/classes/oauth/provider/linkedin.php',
+	'OAuth\\OAuth_Provider_Twitter'  => __DIR__.'/classes/oauth/provider/twitter.php',
 	
 	'OAuth\\OAuth_Request'  => __DIR__.'/classes/oauth/request.php',
 	

@@ -17,7 +17,7 @@ class Exception extends \Fuel_Exception {}
 abstract class OAuth {
 
 	/**
-	 * @var  string  OAuth complaince version
+	 * @var  string  OAuth compliance version
 	 */
 	public static $version = '1.0';
 

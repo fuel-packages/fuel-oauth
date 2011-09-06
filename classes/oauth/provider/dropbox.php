@@ -21,9 +21,7 @@ namespace OAuth;
 class OAuth_Provider_Dropbox extends OAuth_Provider {
 
 	public $name = 'dropbox';
-
-	protected $signature = 'HMAC-SHA1';
-
+	
 	public $uid_key = 'uid';
 
 	public function url_request_token()
