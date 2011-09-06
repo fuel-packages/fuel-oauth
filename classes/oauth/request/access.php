@@ -23,7 +23,7 @@ class OAuth_Request_Access extends OAuth_Request {
 		'oauth_signature'        => TRUE,
 		'oauth_timestamp'        => TRUE,
 		'oauth_nonce'            => TRUE,
-		'oauth_verifier'         => TRUE,
+		// 'oauth_verifier'         => TRUE,
 		'oauth_version'          => TRUE,
 	);
 
