@@ -41,7 +41,7 @@ abstract class OAuth_Provider {
 	/**
 	 * @var  string  uid key name
 	 */
-	public $uid_key;
+	public $uid_key = 'uid';
 
 	/**
 	 * @var  array  additional request parameters to be used for remote requests

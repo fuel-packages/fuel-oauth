@@ -22,8 +22,6 @@ class OAuth_Provider_Linkedin extends OAuth_Provider {
 
 	public $name = 'linkedin';
 
-	public $uid_key = 'uid';
-
 	public function url_request_token()
 	{
 		return 'https://api.linkedin.com/uas/oauth/requestToken';
