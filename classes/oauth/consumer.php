@@ -50,14 +50,14 @@ class OAuth_Consumer {
 	 */
 	public function __construct(array $options = NULL)
 	{
-		if ( ! isset($options['key']))
+		if (empty($options['key']))
 		{
-			throw new Exception('Required option not passed: key');
+			throw new Exception('Required option not provided: key');
 		}
 
-		if ( ! isset($options['secret']))
+		if (empty($options['secret']))
 		{
-			throw new Exception('Required option not passed: secret');
+			throw new Exception('Required option not provided: secret');
 		}
 
 		$this->key = $options['key'];
