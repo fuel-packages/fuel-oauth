@@ -43,6 +43,11 @@ class OAuth_Consumer {
 	protected $callback;
 
 	/**
+	 * @var  string  scope for OAuth authorization completion
+	 */
+	protected $scope;
+
+	/**
 	 * Sets the consumer key and secret.
 	 *
 	 * @param   array  consumer options, key and secret are required
@@ -55,11 +60,12 @@ class OAuth_Consumer {
 			throw new Exception('Required option not provided: key');
 		}
 
-		if (empty($options['secret']))
+/* TODO Erm? YouTube doesnt need this 
+		if ( ! isset($options['secret']))
 		{
 			throw new Exception('Required option not provided: secret');
 		}
-
+*/
 		$this->key = $options['key'];
 
 		$this->secret = $options['secret'];
@@ -67,6 +73,11 @@ class OAuth_Consumer {
 		if (isset($options['callback']))
 		{
 			$this->callback = $options['callback'];
+		}
+		
+		if (isset($options['scope']))
+		{
+			$this->scope = $options['scope'];
 		}
 	}
 

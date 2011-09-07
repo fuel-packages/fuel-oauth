@@ -147,6 +147,7 @@ abstract class OAuth_Provider {
 		$request = OAuth_Request::factory('token', 'GET', $this->url_request_token(), array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_callback'     => $consumer->callback,
+			'scope'     		 => $consumer->scope,
 		));
 
 		if ($params)

@@ -25,6 +25,7 @@ Autoloader::add_classes(array(
 	'OAuth\\OAuth_Provider_Google'  => __DIR__.'/classes/oauth/provider/google.php',
 	'OAuth\\OAuth_Provider_Linkedin'  => __DIR__.'/classes/oauth/provider/linkedin.php',
 	'OAuth\\OAuth_Provider_Twitter'  => __DIR__.'/classes/oauth/provider/twitter.php',
+	'OAuth\\OAuth_Provider_Youtube'  => __DIR__.'/classes/oauth/provider/youtube.php',
 	
 	'OAuth\\OAuth_Request'  => __DIR__.'/classes/oauth/request.php',
 	
