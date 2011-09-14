@@ -1,9 +1,9 @@
 <?php
 /**
- * OAuth Access Token
+ * OAuth Credentials Request
  *
  * @package    Kohana/OAuth
- * @category   Token
+ * @category   Request
  * @author     Kohana Team
  * @copyright  (c) 2010 Kohana Team
  * @license    http://kohanaframework.org/license
@@ -12,8 +12,8 @@
 
 namespace OAuth;
 
-class OAuth_Token_Access extends OAuth_Token {
+class Request_Credentials extends Request {
 
-	protected $name = 'access';
 
-} // End OAuth_Token_Access
+
+} // End Request_Credentials

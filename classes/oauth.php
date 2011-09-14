@@ -97,7 +97,7 @@ abstract class OAuth {
 		if (is_array($input))
 		{
 			// Encode the values of the array
-			return array_map(array('OAuth', 'urlencode'), $input);
+			return array_map(array('OAuth\\OAuth', 'urlencode'), $input);
 		}
 
 		// Encode the input
@@ -124,7 +124,7 @@ abstract class OAuth {
 		if (is_array($input))
 		{
 			// Decode the values of the array
-			return array_map(array('OAuth', 'urldecode'), $input);
+			return array_map(array('OAuth\\OAuth', 'urldecode'), $input);
 		}
 
 		// Decode the input

@@ -12,7 +12,7 @@
 
 namespace OAuth;
 
-class OAuth_Request_Access extends OAuth_Request {
+class Request_Access extends Request {
 
 	protected $name = 'access';
 
@@ -29,7 +29,7 @@ class OAuth_Request_Access extends OAuth_Request {
 
 	public function execute(array $options = NULL)
 	{
-		return OAuth_Response::factory(parent::execute($options));
+		return Response::factory(parent::execute($options));
 	}
 
-} // End OAuth_Request_Access
+} // End Request_Access

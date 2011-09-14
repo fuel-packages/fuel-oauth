@@ -18,50 +18,54 @@
 
 namespace OAuth;
 
-class OAuth_Provider_Linkedin extends OAuth_Provider {
+class Provider_Twitter extends Provider {
 
-	public $name = 'linkedin';
+	public $name = 'twitter';
+	
+	public $uid_key = 'user_id';
 
 	public function url_request_token()
 	{
-		return 'https://api.linkedin.com/uas/oauth/requestToken';
+		return 'https://api.twitter.com/oauth/request_token';
 	}
 
 	public function url_authorize()
 	{
-		return 'https://api.linkedin.com/uas/oauth/authorize';
+		return 'https://api.twitter.com/oauth/authenticate';
 	}
 
 	public function url_access_token()
 	{
-		return 'https://api.linkedin.com/uas/oauth/accessToken';
+		return 'https://api.twitter.com/oauth/access_token';
 	}
 	
-	public function get_user_info(OAuth_Consumer $consumer, OAuth_Token $token)
-	{
+	public function get_user_info(Consumer $consumer, Token $token)
+	{		
 		// Create a new GET request with the required parameters
-		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
-		$request = OAuth_Request::factory('resource', 'GET', $url, array(
+		$request = Request::factory('resource', 'GET', 'http://api.twitter.com/1/users/lookup.json', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
+			'user_id' => $token->uid,
 		));
 
 		// Sign the request using the consumer and token
 		$request->sign($this->signature, $consumer, $token);
-		
-		$user = \Format::forge($request->execute(), 'xml')->to_array();
+
+		$user = current(json_decode($request->execute()));
 		
 		// Create a response from the request
 		return array(
-			'name' => $user['first-name'].' '.$user['last-name'],
-			'nickname' => end(explode('/', $user['public-profile-url'])),
-			'description' => $user['headline'],
-			'location' => \Arr::get($user, 'location.name'),
+			'nickname' => $user->screen_name,
+			'name' => $user->name ?: $user->screen_name,
+			'location' => $user->location,
+			'image' => $user->profile_image_url,
+			'description' => $user->description,
 			'urls' => array(
-			  'Linked In' => $user['public-profile-url'],
+			  'Website' => $user->url,
+			  'Twitter' => 'http://twitter.com/'.$user->screen_name,
 			),
 			'credentials' => array(
-				'uid' => $user['id'],
+				'uid' => $token->uid,
 				'provider' => $this->name,
 				'token' => $token->token,
 				'secret' => $token->secret,
@@ -69,4 +73,4 @@ class OAuth_Provider_Linkedin extends OAuth_Provider {
 		);
 	}
 
-} // End OAuth_Provider_Dropbox
+} // End Provider_Twitter

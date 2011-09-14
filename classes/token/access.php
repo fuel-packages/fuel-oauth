@@ -1,9 +1,9 @@
 <?php
 /**
- * OAuth Server
+ * OAuth Access Token
  *
  * @package    Kohana/OAuth
- * @category   Server
+ * @category   Token
  * @author     Kohana Team
  * @copyright  (c) 2010 Kohana Team
  * @license    http://kohanaframework.org/license
@@ -12,6 +12,8 @@
 
 namespace OAuth;
 
-abstract class OAuth_Server {
+class Token_Access extends Token {
 
-} // End OAuth_Server
+	protected $name = 'access';
+
+} // End Token_Access

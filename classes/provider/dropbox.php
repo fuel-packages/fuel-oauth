@@ -18,50 +18,44 @@
 
 namespace OAuth;
 
-class OAuth_Provider_Youtube extends OAuth_Provider {
+class Provider_Dropbox extends Provider {
 
-	public $name = 'youtube';
+	public $name = 'dropbox';
 
 	public function url_request_token()
 	{
-		return 'https://www.google.com/accounts/OAuthGetRequestToken';
+		return 'https://api.dropbox.com/0/oauth/request_token';
 	}
 
 	public function url_authorize()
 	{
-		return 'https://www.google.com/accounts/OAuthAuthorizeToken';
+		return 'http://www.dropbox.com/0/oauth/authorize';
 	}
 
 	public function url_access_token()
 	{
-		return 'https://www.google.com/accounts/OAuthGetAccessToken';
+		return 'https://api.dropbox.com/0/oauth/access_token';
 	}
 	
-	public function get_user_info(OAuth_Consumer $consumer, OAuth_Token $token)
+	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
-		$request = OAuth_Request::factory('resource', 'GET', $url, array(
+		$request = Request::factory('resource', 'GET', 'https://api.dropbox.com/0/account/info', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
 		));
 
 		// Sign the request using the consumer and token
 		$request->sign($this->signature, $consumer, $token);
-		
-		$user = \Format::forge($request->execute(), 'xml')->to_array();
+
+		$user = json_decode($request->execute());
 		
 		// Create a response from the request
 		return array(
-			'name' => $user['first-name'].' '.$user['last-name'],
-			'nickname' => end(explode('/', $user['public-profile-url'])),
-			'description' => $user['headline'],
-			'location' => \Arr::get($user, 'location.name'),
-			'urls' => array(
-			  'Linked In' => $user['public-profile-url'],
-			),
+			'name' => $user->display_name,
+			'location' => $user->country,
 			'credentials' => array(
-				'uid' => $user['id'],
+				'uid' => $token->uid,
 				'provider' => $this->name,
 				'token' => $token->token,
 				'secret' => $token->secret,
@@ -69,4 +63,4 @@ class OAuth_Provider_Youtube extends OAuth_Provider {
 		);
 	}
 
-} // End OAuth_Provider_Dropbox
+} // End Provider_Dropbox

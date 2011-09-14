@@ -18,47 +18,50 @@
 
 namespace OAuth;
 
-class OAuth_Provider_Flickr extends OAuth_Provider {
+class Provider_Youtube extends Provider {
 
-	public $name = 'flickr';
+	public $name = 'youtube';
 
 	public function url_request_token()
 	{
-		return 'http://www.flickr.com/services/oauth/request_token';
+		return 'https://www.google.com/accounts/OAuthGetRequestToken';
 	}
 
 	public function url_authorize()
 	{
-		return 'http://www.flickr.com/services/oauth/authorize';
+		return 'https://www.google.com/accounts/OAuthAuthorizeToken';
 	}
 
 	public function url_access_token()
 	{
-		return 'http://www.flickr.com/services/oauth/access_token';
+		return 'https://www.google.com/accounts/OAuthGetAccessToken';
 	}
 	
-	public function get_user_info(OAuth_Consumer $consumer, OAuth_Token $token)
+	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$request = OAuth_Request::factory('resource', 'GET', 'http://api.flickr.com/services/rest', array(
+		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
+		$request = Request::factory('resource', 'GET', $url, array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
-			'nojsoncallback' => 1,
-			'format' => 'json',
-			'method' => 'flickr.test.login',
 		));
 
 		// Sign the request using the consumer and token
 		$request->sign($this->signature, $consumer, $token);
-
-		$response = json_decode($request->execute(), true);
-
+		
+		$user = \Format::forge($request->execute(), 'xml')->to_array();
+		
 		// Create a response from the request
 		return array(
-			'name' => \Arr::get($response, 'user.username._content'),
-			'nickname' => \Arr::get($response, 'user.username._content'),
+			'name' => $user['first-name'].' '.$user['last-name'],
+			'nickname' => end(explode('/', $user['public-profile-url'])),
+			'description' => $user['headline'],
+			'location' => \Arr::get($user, 'location.name'),
+			'urls' => array(
+			  'Linked In' => $user['public-profile-url'],
+			),
 			'credentials' => array(
-				'uid' => \Arr::get($response, 'user.id'),
+				'uid' => $user['id'],
 				'provider' => $this->name,
 				'token' => $token->token,
 				'secret' => $token->secret,
@@ -66,4 +69,4 @@ class OAuth_Provider_Flickr extends OAuth_Provider {
 		);
 	}
 
-} // End OAuth_Provider_Dropbox
+} // End Provider_Dropbox

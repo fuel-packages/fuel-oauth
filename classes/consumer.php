@@ -12,7 +12,7 @@
 
 namespace OAuth;
 
-class OAuth_Consumer {
+class Consumer {
 
 	/**
 	 * Create a new consumer object.
@@ -24,7 +24,7 @@ class OAuth_Consumer {
 	 */
 	public static function factory(array $options = NULL)
 	{
-		return new OAuth_Consumer($options);
+		return new static($options);
 	}
 
 	/**

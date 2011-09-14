@@ -13,7 +13,7 @@
 
 namespace OAuth;
 
-class OAuth_Signature_PLAINTEXT extends OAuth_Signature {
+class Signature_PLAINTEXT extends Signature {
 
 	protected $name = 'PLAINTEXT';
 
@@ -29,7 +29,7 @@ class OAuth_Signature_PLAINTEXT extends OAuth_Signature {
 	 * @param   OAuth_Token     token
 	 * @return  $this
 	 */
-	public function sign(OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function sign(Request $request, Consumer $consumer, Token $token = NULL)
 	{
 		// Use the signing key as the signature
 		return $this->key($consumer, $token);
@@ -52,7 +52,7 @@ class OAuth_Signature_PLAINTEXT extends OAuth_Signature {
 	 * @return  boolean
 	 * @uses    OAuth_Signature_PLAINTEXT::sign
 	 */
-	public function verify($signature, OAuth_Request $request, OAuth_Consumer $consumer, OAuth_Token $token = NULL)
+	public function verify($signature, Request $request, Consumer $consumer, Token $token = NULL)
 	{
 		return $signature === $this->key($consumer, $token);
 	}

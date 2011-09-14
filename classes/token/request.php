@@ -12,7 +12,7 @@
 
 namespace OAuth;
 
-class OAuth_Token_Request extends OAuth_Token {
+class Token_Request extends Token {
 
 	protected $name = 'request';
 
@@ -36,4 +36,4 @@ class OAuth_Token_Request extends OAuth_Token {
 		return $this;
 	}
 
-} // End OAuth_Token_Request
+} // End Token_Request
