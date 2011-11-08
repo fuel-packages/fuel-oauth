@@ -26,7 +26,7 @@ abstract class Provider {
 	 */
 	public static function factory($name, array $options = NULL)
 	{
-		$class = 'OAuth\\Provider_'.\Inflector::classify($name);
+		$class = '\\OAuth\\Provider_'.\Inflector::classify($name);
 
 		return new $class($options);
 	}
@@ -233,4 +233,4 @@ abstract class Provider {
 		));
 	}
 
-} // End Signature
+} // End Provider

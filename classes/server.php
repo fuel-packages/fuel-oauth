@@ -14,4 +14,4 @@ namespace OAuth;
 
 abstract class Server {
 
-} // End OAuth_Server
+} // End Server

@@ -51,4 +51,4 @@ class Response {
 		return \Arr::get($this->params, $name, $default);
 	}
 
-} // End OAuth_Response
+} // End Response

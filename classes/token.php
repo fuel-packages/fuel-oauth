@@ -25,7 +25,7 @@ abstract class Token {
 	 */
 	public static function factory($name, array $options = NULL)
 	{
-		$class = 'OAuth\\Token_'.\Inflector::classify($name);
+		$class = '\\OAuth\\Token_'.\Inflector::classify($name);
 
 		return new $class($options);
 	}

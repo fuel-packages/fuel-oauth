@@ -27,7 +27,7 @@ class Request {
 	 */
 	public static function factory($type, $method, $url = NULL, array $params = NULL)
 	{
-		$class = 'OAuth\\Request_'.\Inflector::classify($type);
+		$class = '\\OAuth\\Request_'.\Inflector::classify($type);
 
 		return new $class($method, $url, $params);
 	}

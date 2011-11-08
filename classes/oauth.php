@@ -50,8 +50,7 @@ abstract class OAuth {
 		// Set connection options
 		if ( ! curl_setopt_array($remote, $options))
 		{
-			throw new Exception('Failed to set CURL options, check CURL documentation: :url',
-				array(':url' => 'http://php.net/curl_setopt_array'));
+			throw new Exception('Failed to set CURL options, check CURL documentation: http://php.net/curl_setopt_array');
 		}
 
 		// Get the response
@@ -60,7 +59,7 @@ abstract class OAuth {
 		// Get the response information
 		$code = curl_getinfo($remote, CURLINFO_HTTP_CODE);
 
-		if ($code AND $code < 200 OR $code > 299)
+		if ($code AND ($code < 200 OR $code > 299))
 		{
 			$error = $response;
 		}
