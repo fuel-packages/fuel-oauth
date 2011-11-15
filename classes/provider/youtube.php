@@ -40,7 +40,7 @@ class Provider_Youtube extends Provider {
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
+		$url = 'https://api.google.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
 		$request = Request::factory('resource', 'GET', $url, array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
