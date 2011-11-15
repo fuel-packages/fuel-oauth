@@ -36,6 +36,9 @@ abstract class Provider {
 	 */
 	public $name;
 
+	/**
+	 * @var  string  signature type
+	 */
 	protected $signature = 'HMAC-SHA1';
 
 	/**
@@ -47,6 +50,11 @@ abstract class Provider {
 	 * @var  array  additional request parameters to be used for remote requests
 	 */
 	protected $params = array();
+	
+	/**
+	 * @var  string  scope separator, most use "," but some like Google are spaces
+	 */
+	public $scope_seperator = ',';
 
 	/**
 	 * Overloads default class properties from the options.
@@ -147,7 +155,7 @@ abstract class Provider {
 		$request = Request::factory('token', 'GET', $this->url_request_token(), array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_callback'     => $consumer->callback,
-			'scope'     		 => $consumer->scope,
+			'scope'     		 => is_array($consumer->scope) ? implode($this->scope_seperator, $consumer->scope) : $consumer->scope,
 		));
 
 		if ($params)
