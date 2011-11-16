@@ -2,11 +2,9 @@
 
 namespace OAuth;
 
-class Provider_Gmail extends Provider {
+class Provider_Google extends Provider {
 
-	public $name = 'gmail';
-	
-	public $uid_key = 'user_id';
+	public $name = 'google';
 	
 	/**
 	 * @var  string  scope separator, most use "," but some like Google are spaces
@@ -30,15 +28,32 @@ class Provider_Gmail extends Provider {
 	
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
+		// Create a new GET request with the required parameters
+		$request = Request::factory('resource', 'GET', 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json', array(
+			'oauth_consumer_key' => $consumer->key,
+			'oauth_token' => $token->token,
+		));
+
+		// Sign the request using the consumer and token
+		$request->sign($this->signature, $consumer, $token);
+
+		$response = json_decode($request->execute(), true);
+		
+		// Fetch data parts
+		$email = \Arr::get($response, 'feed.id.$t');
+		$name = \Arr::get($response, 'feed.author.0.name.$t');
+		$name == '(unknown)' and $name = $email;
+		
 		return array(
-			'nickname' => null,
-			'name' => null,
+			'nickname' => \Inflector::friendly_title($name),
+			'name' => $name,
+			'email' => $email,
 			'location' => null,
 			'image' => null,
 			'description' => null,
 			'urls' => array(),
 			'credentials' => array(
-				'uid' => $token->uid,
+				'uid' => $email,
 				'provider' => $this->name,
 				'token' => $token->token,
 				'secret' => $token->secret,
