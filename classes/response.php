@@ -14,7 +14,7 @@ namespace OAuth;
 
 class Response {
 
-	public static function factory($body)
+	public static function forge($body)
 	{
 		return new static($body);
 	}

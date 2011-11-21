@@ -42,7 +42,7 @@ class Provider_Twitter extends Provider {
 	public function get_user_info(Consumer $consumer, Token $token)
 	{		
 		// Create a new GET request with the required parameters
-		$request = Request::factory('resource', 'GET', 'http://api.twitter.com/1/users/lookup.json', array(
+		$request = Request::forge('resource', 'GET', 'http://api.twitter.com/1/users/lookup.json', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
 			'user_id' => $token->uid,
@@ -55,6 +55,7 @@ class Provider_Twitter extends Provider {
 		
 		// Create a response from the request
 		return array(
+			'uid' => $token->uid,
 			'nickname' => $user->screen_name,
 			'name' => $user->name ?: $user->screen_name,
 			'location' => $user->location,
@@ -63,12 +64,6 @@ class Provider_Twitter extends Provider {
 			'urls' => array(
 			  'Website' => $user->url,
 			  'Twitter' => 'http://twitter.com/'.$user->screen_name,
-			),
-			'credentials' => array(
-				'uid' => $token->uid,
-				'provider' => $this->name,
-				'token' => $token->token,
-				'secret' => $token->secret,
 			),
 		);
 	}

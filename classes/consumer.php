@@ -17,12 +17,12 @@ class Consumer {
 	/**
 	 * Create a new consumer object.
 	 *
-	 *     $consumer = Consumer::factory($options);
+	 *     $consumer = Consumer::forge($options);
 	 *
 	 * @param   array  consumer options, key and secret are required
 	 * @return  Consumer
 	 */
-	public static function factory(array $options = NULL)
+	public static function forge(array $options = NULL)
 	{
 		return new static($options);
 	}

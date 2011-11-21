@@ -41,7 +41,7 @@ class Provider_Linkedin extends Provider {
 	{
 		// Create a new GET request with the required parameters
 		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
-		$request = Request::factory('resource', 'GET', $url, array(
+		$request = Request::forge('resource', 'GET', $url, array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
 		));
@@ -53,18 +53,13 @@ class Provider_Linkedin extends Provider {
 		
 		// Create a response from the request
 		return array(
+			'uid' => $user['id'],
 			'name' => $user['first-name'].' '.$user['last-name'],
 			'nickname' => end(explode('/', $user['public-profile-url'])),
 			'description' => $user['headline'],
 			'location' => \Arr::get($user, 'location.name'),
 			'urls' => array(
 			  'Linked In' => $user['public-profile-url'],
-			),
-			'credentials' => array(
-				'uid' => $user['id'],
-				'provider' => $this->name,
-				'token' => $token->token,
-				'secret' => $token->secret,
 			),
 		);
 	}

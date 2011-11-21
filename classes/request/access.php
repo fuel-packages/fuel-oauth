@@ -29,7 +29,7 @@ class Request_Access extends Request {
 
 	public function execute(array $options = NULL)
 	{
-		return Response::factory(parent::execute($options));
+		return Response::forge(parent::execute($options));
 	}
 
 } // End Request_Access

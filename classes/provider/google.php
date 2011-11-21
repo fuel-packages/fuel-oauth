@@ -26,10 +26,26 @@ class Provider_Google extends Provider {
 		return 'https://www.google.com/accounts/OAuthGetAccessToken';
 	}
 	
+	public function __construct(array $options = array())
+	{
+		// Now make sure we have the default scope to get user data
+		$options['scope'] = \Arr::merge(
+			
+			// We need this default feed to get the authenticated users basic information
+			// array('https://www.googleapis.com/auth/plus.me'),
+			array('https://www.google.com/m8/feeds'),
+			
+			// And take either a string and array it, or empty array to merge into
+			(array) \Arr::get($options, 'scope', array())
+		);
+		
+		parent::__construct($options);
+	}
+	
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$request = Request::factory('resource', 'GET', 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json', array(
+		$request = Request::forge('resource', 'GET', 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
 		));
@@ -45,6 +61,7 @@ class Provider_Google extends Provider {
 		$name == '(unknown)' and $name = $email;
 		
 		return array(
+			'uid' => $email,
 			'nickname' => \Inflector::friendly_title($name),
 			'name' => $name,
 			'email' => $email,
@@ -52,12 +69,6 @@ class Provider_Google extends Provider {
 			'image' => null,
 			'description' => null,
 			'urls' => array(),
-			'credentials' => array(
-				'uid' => $email,
-				'provider' => $this->name,
-				'token' => $token->token,
-				'secret' => $token->secret,
-			),
 		);
 	}
 

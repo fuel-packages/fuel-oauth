@@ -17,13 +17,13 @@ abstract class Signature {
 	/**
 	 * Create a new signature object by name.
 	 *
-	 *     $signature = Signature::factory('HMAC-SHA1');
+	 *     $signature = Signature::forge('HMAC-SHA1');
 	 *
 	 * @param   string  signature name: HMAC-SHA1, PLAINTEXT, etc
 	 * @param   array   signature options
 	 * @return  Signature
 	 */
-	public static function factory($name, array $options = NULL)
+	public static function forge($name, array $options = NULL)
 	{
 		// Create the class name as a base of this class
 		$class = '\\OAuth\\Signature_'.str_replace('-', '_', $name);

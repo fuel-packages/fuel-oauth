@@ -40,7 +40,7 @@ class Provider_Dropbox extends Provider {
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$request = Request::factory('resource', 'GET', 'https://api.dropbox.com/0/account/info', array(
+		$request = Request::forge('resource', 'GET', 'https://api.dropbox.com/0/account/info', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
 		));
@@ -52,14 +52,9 @@ class Provider_Dropbox extends Provider {
 		
 		// Create a response from the request
 		return array(
+			'uid' => $token->uid,
 			'name' => $user->display_name,
 			'location' => $user->country,
-			'credentials' => array(
-				'uid' => $token->uid,
-				'provider' => $this->name,
-				'token' => $token->token,
-				'secret' => $token->secret,
-			),
 		);
 	}
 

@@ -18,13 +18,13 @@ abstract class Provider {
 	 * Create a new provider.
 	 *
 	 *     // Load the Twitter provider
-	 *     $provider = Provider::factory('twitter');
+	 *     $provider = Provider::forge('twitter');
 	 *
 	 * @param   string   provider name
 	 * @param   array    provider options
 	 * @return  Provider
 	 */
-	public static function factory($name, array $options = NULL)
+	public static function forge($name, array $options = NULL)
 	{
 		$class = '\\OAuth\\Provider_'.\Inflector::classify($name);
 
@@ -79,7 +79,7 @@ abstract class Provider {
 		if ( ! is_object($this->signature))
 		{
 			// Convert the signature name into an object
-			$this->signature = Signature::factory($this->signature);
+			$this->signature = Signature::forge($this->signature);
 		}
 
 		if ( ! $this->name)
@@ -152,7 +152,7 @@ abstract class Provider {
 	public function request_token(Consumer $consumer, array $params = NULL)
 	{
 		// Create a new GET request for a request token with the required parameters
-		$request = Request::factory('token', 'GET', $this->url_request_token(), array(
+		$request = Request::forge('token', 'GET', $this->url_request_token(), array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_callback'     => $consumer->callback,
 			'scope'     		 => is_array($consumer->scope) ? implode($this->scope_seperator, $consumer->scope) : $consumer->scope,
@@ -171,8 +171,8 @@ abstract class Provider {
 		$response = $request->execute();
 
 		// Store this token somewhere useful
-		return Token::factory('request', array(
-			'token'  => $response->param('oauth_token'),
+		return Token::forge('request', array(
+			'access_token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
 		));
 	}
@@ -189,7 +189,7 @@ abstract class Provider {
 	public function authorize_url(Token_Request $token, array $params = NULL)
 	{
 		// Create a new GET request for a request token with the required parameters
-		$request = Request::factory('authorize', 'GET', $this->url_authorize(), array(
+		$request = Request::forge('authorize', 'GET', $this->url_authorize(), array(
 			'oauth_token' => $token->token,
 		));
 
@@ -215,7 +215,7 @@ abstract class Provider {
 	public function access_token(Consumer $consumer, Token_Request $token, array $params = NULL)
 	{
 		// Create a new GET request for a request token with the required parameters
-		$request = Request::factory('access', 'GET', $this->url_access_token(), array(
+		$request = Request::forge('access', 'GET', $this->url_access_token(), array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token'        => $token->token,
 			'oauth_verifier'     => $token->verifier,
@@ -234,7 +234,7 @@ abstract class Provider {
 		$response = $request->execute();
 		
 		// Store this token somewhere useful
-		return Token::factory('access', array(
+		return Token::forge('access', array(
 			'token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
 			'uid' => $response->param($this->uid_key) ?: \Input::get_post($this->uid_key),

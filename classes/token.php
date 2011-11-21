@@ -17,13 +17,13 @@ abstract class Token {
 	/**
 	 * Create a new token object.
 	 *
-	 *     $token = Token::factory($name);
+	 *     $token = Token::forge($name);
 	 *
 	 * @param   string  token type
 	 * @param   array   token options
 	 * @return  Token
 	 */
-	public static function factory($name, array $options = NULL)
+	public static function forge($name, array $options = NULL)
 	{
 		$class = '\\OAuth\\Token_'.\Inflector::classify($name);
 
@@ -60,17 +60,15 @@ abstract class Token {
 	{
 		if ( ! isset($options['token']))
 		{
-			throw new Exception('Required option not passed: :option',
-				array(':option' => 'token'));
+			throw new \FuelException('Required option not passed: token');
 		}
 
 		if ( ! isset($options['secret']))
 		{
-			throw new Exception('Required option not passed: :option',
-				array(':option' => 'secret'));
+			throw new \FuelException('Required option not passed: secret');
 		}
 
-		$this->token = $options['token'];
+		$this->access_token = $options['token'];
 
 		$this->secret = $options['secret'];
 		
@@ -90,6 +88,20 @@ abstract class Token {
 	public function __get($key)
 	{
 		return $this->$key;
+	}
+	
+	/**
+	 * Return a boolean if the property is set
+	 *
+	 *     // Get the token secret
+	 *     if ($token->secret) exit('YAY SECRET');
+	 *
+	 * @param   string  variable name
+	 * @return  bool
+	 */
+	public function __isset($key)
+	{
+		return isset($this->$key);
 	}
 
 	/**

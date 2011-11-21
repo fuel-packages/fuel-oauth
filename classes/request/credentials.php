@@ -15,5 +15,4 @@ namespace OAuth;
 class Request_Credentials extends Request {
 
 
-
 } // End Request_Credentials

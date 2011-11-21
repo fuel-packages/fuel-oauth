@@ -40,7 +40,7 @@ class Provider_Flickr extends Provider {
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$request = Request::factory('resource', 'GET', 'http://api.flickr.com/services/rest', array(
+		$request = Request::forge('resource', 'GET', 'http://api.flickr.com/services/rest', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->token,
 			'nojsoncallback' => 1,
@@ -55,14 +55,9 @@ class Provider_Flickr extends Provider {
 
 		// Create a response from the request
 		return array(
+			'uid' => \Arr::get($response, 'user.id'),
 			'name' => \Arr::get($response, 'user.username._content'),
 			'nickname' => \Arr::get($response, 'user.username._content'),
-			'credentials' => array(
-				'uid' => \Arr::get($response, 'user.id'),
-				'provider' => $this->name,
-				'token' => $token->token,
-				'secret' => $token->secret,
-			),
 		);
 	}
 
