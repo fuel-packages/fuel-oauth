@@ -42,7 +42,7 @@ class Provider_Flickr extends Provider {
 		// Create a new GET request with the required parameters
 		$request = Request::forge('resource', 'GET', 'http://api.flickr.com/services/rest', array(
 			'oauth_consumer_key' => $consumer->key,
-			'oauth_token' => $token->token,
+			'oauth_token' => $token->access_token,
 			'nojsoncallback' => 1,
 			'format' => 'json',
 			'method' => 'flickr.test.login',

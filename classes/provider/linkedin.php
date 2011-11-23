@@ -43,7 +43,7 @@ class Provider_Linkedin extends Provider {
 		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
 		$request = Request::forge('resource', 'GET', $url, array(
 			'oauth_consumer_key' => $consumer->key,
-			'oauth_token' => $token->token,
+			'oauth_token' => $token->access_token,
 		));
 
 		// Sign the request using the consumer and token

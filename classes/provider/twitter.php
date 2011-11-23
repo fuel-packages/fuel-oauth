@@ -44,7 +44,7 @@ class Provider_Twitter extends Provider {
 		// Create a new GET request with the required parameters
 		$request = Request::forge('resource', 'GET', 'http://api.twitter.com/1/users/lookup.json', array(
 			'oauth_consumer_key' => $consumer->key,
-			'oauth_token' => $token->token,
+			'oauth_token' => $token->access_token,
 			'user_id' => $token->uid,
 		));
 

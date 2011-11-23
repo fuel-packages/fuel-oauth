@@ -190,7 +190,7 @@ abstract class Provider {
 	{
 		// Create a new GET request for a request token with the required parameters
 		$request = Request::forge('authorize', 'GET', $this->url_authorize(), array(
-			'oauth_token' => $token->token,
+			'oauth_token' => $token->access_token,
 		));
 
 		if ($params)
@@ -217,7 +217,7 @@ abstract class Provider {
 		// Create a new GET request for a request token with the required parameters
 		$request = Request::forge('access', 'GET', $this->url_access_token(), array(
 			'oauth_consumer_key' => $consumer->key,
-			'oauth_token'        => $token->token,
+			'oauth_token'        => $token->access_token,
 			'oauth_verifier'     => $token->verifier,
 		));
 
@@ -235,7 +235,7 @@ abstract class Provider {
 		
 		// Store this token somewhere useful
 		return Token::forge('access', array(
-			'token'  => $response->param('oauth_token'),
+			'access_token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
 			'uid' => $response->param($this->uid_key) ?: \Input::get_post($this->uid_key),
 		));
