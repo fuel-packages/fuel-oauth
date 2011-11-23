@@ -47,7 +47,7 @@ class Provider_Google extends Provider {
 		// Create a new GET request with the required parameters
 		$request = Request::forge('resource', 'GET', 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json', array(
 			'oauth_consumer_key' => $consumer->key,
-			'oauth_token' => $token->token,
+			'oauth_token' => $token->access_token,
 		));
 
 		// Sign the request using the consumer and token

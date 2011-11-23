@@ -38,7 +38,7 @@ abstract class Token {
 	/**
 	 * @var  string  token key
 	 */
-	protected $token;
+	protected $access_token;
 
 	/**
 	 * @var  string  token secret
@@ -58,9 +58,9 @@ abstract class Token {
 	 */
 	public function __construct(array $options = NULL)
 	{
-		if ( ! isset($options['token']))
+		if ( ! isset($options['access_token']))
 		{
-			throw new \FuelException('Required option not passed: token');
+			throw new \FuelException('Required option not passed: access_token');
 		}
 
 		if ( ! isset($options['secret']))
@@ -68,7 +68,7 @@ abstract class Token {
 			throw new \FuelException('Required option not passed: secret');
 		}
 
-		$this->access_token = $options['token'];
+		$this->access_token = $options['access_token'];
 
 		$this->secret = $options['secret'];
 		
@@ -111,7 +111,7 @@ abstract class Token {
 	 */
 	public function __toString()
 	{
-		return (string) $this->token;
+		return (string) $this->access_token;
 	}
 
 } // End Token
