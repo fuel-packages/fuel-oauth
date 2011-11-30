@@ -21,6 +21,7 @@ Autoloader::add_classes(array(
 	'OAuth\\Provider_Flickr'  => __DIR__.'/classes/provider/flickr.php',
 	'OAuth\\Provider_Google'  => __DIR__.'/classes/provider/google.php',
 	'OAuth\\Provider_Linkedin'  => __DIR__.'/classes/provider/linkedin.php',
+	'OAuth\\Provider_Tumblr'  => __DIR__.'/classes/provider/tumblr.php',
 	'OAuth\\Provider_Twitter'  => __DIR__.'/classes/provider/twitter.php',
 	'OAuth\\Provider_Youtube'  => __DIR__.'/classes/provider/youtube.php',
 	
