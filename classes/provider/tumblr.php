@@ -8,12 +8,9 @@
  * [!!] This class does not implement the Tumblr API. It is only an
  * implementation of standard OAuth with Tumblr as the service provider.
  *
- * @package    Kohana/OAuth
+ * @package    OAuth
  * @category   Provider
- * @author     Kohana Team
- * @copyright  (c) 2010 Kohana Team
- * @license    http://kohanaframework.org/license
- * @since      3.0.7
+ * @author     Fuel Development Team
  */
 
 namespace OAuth;
