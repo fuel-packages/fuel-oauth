@@ -2,11 +2,11 @@
 /**
  * OAuth Vimeo Provider
  *
- * Documents for implementing Twitter OAuth can be found at
+ * Documents for implementing Vimeo OAuth can be found at
  * <http://vimeo.com/api/docs/oauth>.
  *
- * [!!] This class does not implement the Tumblr API. It is only an
- * implementation of standard OAuth with Tumblr as the service provider.
+ * [!!] This class does not implement the Vimeo API. It is only an
+ * implementation of standard OAuth with Vimeo as the service provider.
  *
  * @package    OAuth
  * @author     Fuel Development Team
