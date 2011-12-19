@@ -24,6 +24,7 @@ Autoloader::add_classes(array(
 	'OAuth\\Provider_Tumblr'  => __DIR__.'/classes/provider/tumblr.php',
 	'OAuth\\Provider_Twitter'  => __DIR__.'/classes/provider/twitter.php',
 	'OAuth\\Provider_Youtube'  => __DIR__.'/classes/provider/youtube.php',
+	'OAuth\\Provider_Vimeo'  => __DIR__.'/classes/provider/vimeo.php',
 	
 	'OAuth\\Request'  => __DIR__.'/classes/request.php',
 	

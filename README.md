@@ -12,4 +12,6 @@ Note that this Cell ONLY provides the authorization mechanism. You will need to 
 - Flickr
 - Google
 - LinkedIn
+- Tumblr
 - Twitter
+- Vimeo
