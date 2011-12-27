@@ -474,6 +474,11 @@ class Request {
 			$options[CURLOPT_CONNECTTIMEOUT] = $this->timeout;
 		}
 
+		if (Fuel::$env === Fuel::DEVELOPMENT)
+		{
+			$options[CURLOPT_SSL_VERIFYPEER] = false;
+		}
+
 		if ($this->send_header)
 		{
 			// Get the the current headers
@@ -497,7 +502,7 @@ class Request {
 				$options[CURLOPT_POSTFIELDS] = $post;
 			}
 		}
-		elseif ($query = $this->as_query())
+		elseif (($query = $this->as_query()))
 		{
 			// Append the parameters to the query string
 			$url = "{$url}?{$query}";
