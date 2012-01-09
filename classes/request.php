@@ -474,7 +474,7 @@ class Request {
 			$options[CURLOPT_CONNECTTIMEOUT] = $this->timeout;
 		}
 
-		if (Fuel::$env === Fuel::DEVELOPMENT)
+		if (\Fuel::$env === \Fuel::DEVELOPMENT)
 		{
 			$options[CURLOPT_SSL_VERIFYPEER] = false;
 		}
