@@ -37,10 +37,15 @@ class Provider_Linkedin extends Provider {
 		return 'https://api.linkedin.com/uas/oauth/accessToken';
 	}
 	
+	public function last($array)
+	{
+		return end($array);
+	}
+
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
-		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)';
+		$url = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,member-url-resources,picture-url,location,public-profile-url)?format=json';
 		$request = Request::forge('resource', 'GET', $url, array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->access_token,
@@ -49,17 +54,19 @@ class Provider_Linkedin extends Provider {
 		// Sign the request using the consumer and token
 		$request->sign($this->signature, $consumer, $token);
 		
-		$user = \Format::forge($request->execute(), 'xml')->to_array();
-		
+		// Gets the JSON object from the response	
+		$user = json_decode($request->execute()->body, true);
+	
 		// Create a response from the request
 		return array(
 			'uid' => $user['id'],
-			'name' => $user['first-name'].' '.$user['last-name'],
-			'nickname' => end(explode('/', $user['public-profile-url'])),
+			'name' => $user['firstName'].' '.$user['lastName'],
+			'image' => $user['pictureUrl'],
+			'nickname' => $this->last(explode('/', $user['publicProfileUrl'])),
 			'description' => $user['headline'],
 			'location' => \Arr::get($user, 'location.name'),
 			'urls' => array(
-			  'Linked In' => $user['public-profile-url'],
+			  'linkedin' => $user['publicProfileUrl'],
 			),
 		);
 	}
