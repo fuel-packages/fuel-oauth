@@ -37,11 +37,6 @@ class Provider_Linkedin extends Provider {
 		return 'https://api.linkedin.com/uas/oauth/accessToken';
 	}
 	
-	public function last($array)
-	{
-		return end($array);
-	}
-
 	public function get_user_info(Consumer $consumer, Token $token)
 	{
 		// Create a new GET request with the required parameters
@@ -56,13 +51,16 @@ class Provider_Linkedin extends Provider {
 		
 		// Gets the JSON object from the response	
 		$user = json_decode($request->execute()->body, true);
-	
+		
+		// Split the profile url to get the user's nickname
+		$split_url = explode('/', $user['publicProfileUrl']);
+
 		// Create a response from the request
 		return array(
 			'uid' => $user['id'],
 			'name' => $user['firstName'].' '.$user['lastName'],
 			'image' => $user['pictureUrl'],
-			'nickname' => $this->last(explode('/', $user['publicProfileUrl'])),
+			'nickname' => end($split_url),
 			'description' => $user['headline'],
 			'location' => \Arr::get($user, 'location.name'),
 			'urls' => array(
