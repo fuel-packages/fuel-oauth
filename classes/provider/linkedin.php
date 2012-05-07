@@ -66,7 +66,7 @@ class Provider_Linkedin extends Provider {
 			'description' => $user['headline'],
 			'location' => \Arr::get($user, 'location.name'),
 			'urls' => array(
-			  'linkedin' => $user['publicProfileUrl'],
+			  'Linked In' => $user['publicProfileUrl'],
 			),
 		);
 	}
