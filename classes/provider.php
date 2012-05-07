@@ -237,7 +237,7 @@ abstract class Provider {
 		return Token::forge('access', array(
 			'access_token'  => $response->param('oauth_token'),
 			'secret' => $response->param('oauth_token_secret'),
-			'uid' => $response->param($this->uid_key) ?: \Input::get_post($this->uid_key),
+			'uid' => $response->param($this->uid_key) ?: \Input::param($this->uid_key),
 		));
 	}
 

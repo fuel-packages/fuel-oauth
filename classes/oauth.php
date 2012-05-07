@@ -12,7 +12,7 @@
 
 namespace OAuth;
 
-class Exception extends \Fuel_Exception {}
+class Exception extends \FuelException {}
 
 abstract class OAuth {
 
