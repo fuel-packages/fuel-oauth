@@ -42,20 +42,19 @@ class Provider_Twitter extends Provider {
 	public function get_user_info(Consumer $consumer, Token $token)
 	{		
 		// Create a new GET request with the required parameters
-		$request = Request::forge('resource', 'GET', 'http://api.twitter.com/1.1/users/lookup.json', array(
+		$request = Request::forge('resource', 'GET', 'http://api.twitter.com/1.1/account/verify_credentials.json', array(
 			'oauth_consumer_key' => $consumer->key,
 			'oauth_token' => $token->access_token,
-			'user_id' => $token->uid,
 		));
 
 		// Sign the request using the consumer and token
 		$request->sign($this->signature, $consumer, $token);
 
-		$user = current(json_decode($request->execute()));
+		$user = json_decode($request->execute());
 		
 		// Create a response from the request
 		return array(
-			'uid' => $token->uid,
+			'uid' => $user->id,
 			'nickname' => $user->screen_name,
 			'name' => $user->name ?: $user->screen_name,
 			'location' => $user->location,
